@@ -1,3 +1,7 @@
+from parte_dani.parte_dani import establecer_relaciones, mostrar_personajes
+from parte_dario.parte3_dario import agregar_personajes, añadir_equipamiento, equipar_arma, simular_batalla
+
+
 def menu():
     es_valido = True
     while es_valido:
@@ -13,38 +17,44 @@ def menu():
             8. Buscar personajes por equipamiento
             9. Mostrar todos los personajes
             10. Salir""")
-            opcion = int(input("Seleccione una opcion: "))
-            if (opcion < 1 and opcion > 10):
-                raise ValueError("Opcion no válida")
-            else:
-                match opcion:
-                    case 1:
-                        return
-                    case 2:
-                        return
-                    case 3:
-                        return
-                    case 4:
-                        return
-                    case 5:
-                        return
-                    case 6:
-                        return
-                    case 7:
-                        listar_personajes_faccion()
-                    case 8:
-                        buscar_personajes_equipamiento()
-                    case 9:
-                        return
-                    case 10:
-                        print("Saliendo del juego")
-                        es_valido = False
+
+            opcion = int(input("Seleccione una opción: "))
+            if opcion < 1 or opcion > 10:
+                raise ValueError("Opción no válida")
+
+            # Bloque match-case
+            match opcion:
+                case 1:
+                    agregar_personajes()
+                case 2:
+                    añadir_equipamiento()
+                case 3:
+                    equipar_arma()
+                case 4:
+                    establecer_relaciones()
+                case 5:
+                    print("Moviendo un personaje a una nueva localización...")
+                case 6:
+                    simular_batalla()
+                case 7:
+                    listar_personajes_faccion()
+                case 8:
+                    buscar_personajes_equipamiento()
+                case 9:
+                    mostrar_personajes()
+                case 10:
+                    print("Saliendo del juego")
+                    es_valido = False
         except ValueError as e:
             print(f"Error: {e}")
 
+
 def listar_personajes_faccion():
-    pass
+    print("Listando personajes por facción...")
+
 
 def buscar_personajes_equipamiento():
-    pass
+    print("Buscando personajes por equipamiento...")
 
+
+menu()
