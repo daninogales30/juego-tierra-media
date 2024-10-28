@@ -103,7 +103,7 @@ def agregar_personajes():
         "ubicacion": ubicacion.lower(),
         "equipamiento": [],
         "relaciones": [],
-        "arma_equipada": None
+        "arma_equipada": ""
     }
     print("Personaje añadido\n")
 
@@ -214,23 +214,28 @@ def equipar_arma():
     print(f"El personaje {nombre_personaje} no tiene ese arma\n")
 
 def simular_batalla():
-    personaje1=""
-    personaje2=""
-    arma1=personajes[personaje1]["equipamiento"]
-    arma2=personajes[personaje2]["equipamiento"]
-    if not arma1 or not arma2:
-        print("Ambos personajes necesitan un arma para luchar")
-    potencia1=arma1["potencia"]
-    potencia2=arma2["potencia"]
+    personaje1= is_nombre(input("Introduzca el nombre del primer personaje: "))
+    arma1 = personajes[personaje1]["arma_equipada"]
+    if arma1 == "":
+        raise ValueError(f"El personaje {personaje1} no tiene arma")
+
+    personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
+    arma2 = personajes[personaje2]["arma_equipada"]
+    if arma2 == "":
+        raise ValueError(f"El personaje {personaje2} no tiene arma")
+
+    potencia1=armas[arma1]["potencia"]
+    potencia2=armas[arma2]["potencia"]
+
     probabilidad_ganar1=potencia1/(potencia1+potencia2)
     probabilidad_ganar2 = potencia2 / (potencia2 + potencia1)
+
     if probabilidad_ganar1 > probabilidad_ganar2:
         ganador = personaje1
     elif probabilidad_ganar2 > probabilidad_ganar1:
         ganador = personaje2
-    print(f"La batalla acaba de empezar entre {personaje1} y {personaje2}")
-    print(f"{personaje1}con {arma1['tipo']}vs {personaje2}con {arma2['tipo']}")
-    print(f"Y el ganador es:")
+
+    print(f"El ganador {ganador}\n")
 
 
 def menu():
