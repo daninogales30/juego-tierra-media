@@ -1,7 +1,7 @@
 from parte_dani.parte_dani import establecer_relaciones, mostrar_personajes, cambiar_localizacion
 from parte_dario.parte3_dario import agregar_personajes, añadir_equipamiento, equipar_arma, simular_batalla
 
-
+facciones = ["La Comunidad del Anillo", "Mordor", "Isengard", "Rivendel", "Lothlórien"]
 def menu():
     es_valido = True
     while es_valido:
@@ -50,7 +50,13 @@ def menu():
 
 
 def listar_personajes_faccion():
-    print("Listando personajes por facción...")
+    faccion = input("Inserte la facción:")
+    if faccion.lower() in facciones:
+        for personaje in faccion:
+            print(personaje)
+    else:
+        raise ValueError("Esa faccion no existe")
+
 
 
 def buscar_personajes_equipamiento():
