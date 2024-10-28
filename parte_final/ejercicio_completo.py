@@ -282,7 +282,7 @@ def menu():
                 case 7:
                     listar_personajes_faccion()
                 case 8:
-                    buscar_personajes_equipamiento(armas)
+                    buscar_personajes_equipamiento()
                 case 9:
                     mostrar_personajes(personajes)
                 case 10:
@@ -306,7 +306,7 @@ def listar_personajes_faccion():
     else:
         print(f"No hay personajes en la facción '{faccion}'.")
 
-def buscar_personajes_equipamiento(armas):
+def buscar_personajes_equipamiento():
     nombre_arma = is_arma(input("Ingrese el nombre del arma que desea buscar en los personajes: "))
 
     personajes_con_arma = []
@@ -319,7 +319,7 @@ def buscar_personajes_equipamiento(armas):
     if personajes_con_arma:
         print(f"Personajes que tienen el arma '{armas[nombre_arma]["nombre"]}':")
         for nombre in personajes_con_arma:
-            print("- " + nombre)
+            print("- " + nombre.capitalize())
     else:
         print(f"No se encontraron personajes con el arma '{armas[nombre_arma]["nombre"]}'.")
 
