@@ -61,6 +61,3 @@ def listar_personajes_faccion():
 
 def buscar_personajes_equipamiento():
     print("Buscando personajes por equipamiento...")
-
-
-menu()
