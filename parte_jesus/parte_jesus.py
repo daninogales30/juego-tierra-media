@@ -1,7 +1,6 @@
 from parte_dani.parte_dani import *
 from parte_dario.parte3_dario import *
 
-facciones = ["La Comunidad del Anillo", "Mordor", "Isengard", "Rivendel", "Lothlórien"]
 def menu():
     es_valido = True
     while es_valido:
@@ -53,7 +52,7 @@ def listar_personajes_faccion(faccion_list, personajes):
     faccion = input("Ingrese la facción que desea listar: ")
 
 
-    if faccion not in faccion_list:
+    if faccion.lower() not in faccion_list:
         print(f"Error: La facción '{faccion}' no existe.")
         return
 
