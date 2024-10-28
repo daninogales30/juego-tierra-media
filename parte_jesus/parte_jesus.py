@@ -39,7 +39,7 @@ def menu():
                 case 7:
                     listar_personajes_faccion(facciones, personajes)
                 case 8:
-                    buscar_personajes_equipamiento()
+                    buscar_personajes_equipamiento(armas)
                 case 9:
                     mostrar_personajes()
                 case 10:
@@ -50,14 +50,42 @@ def menu():
 
 
 def listar_personajes_faccion(faccion_list, personajes):
-    faccion = input("Inserte la facción:")
-    if faccion in faccion_list:
-        for personaje in personajes:
-            print(personaje)
+    faccion = input("Ingrese la facción que desea listar: ")
+
+
+    if faccion not in faccion_list:
+        print(f"Error: La facción '{faccion}' no existe.")
+        return
+
+    personajes_faccion = [nombre for nombre, datos in personajes.items() if datos["faccion"] == faccion]
+
+    if personajes_faccion:
+        print(f"Personajes de la facción '{faccion}':")
+        for nombre in personajes_faccion:
+            datos = personajes[nombre]
+            print("Nombre:", nombre)
+            print("Raza:", datos["raza"])
+            print("Ubicación:", datos["ubicacion"])
+            print("Equipamiento:", ", ".join(item['tipo'] for item in datos["equipamiento"]) if datos["equipamiento"] else "Ninguno")
+            print()
     else:
-        raise ValueError("Esa faccion no existe")
+        print(f"No hay personajes en la facción '{faccion}'.")
 
 
+def buscar_personajes_equipamiento(armas):
+    nombre_arma = input("Ingrese el nombre del arma que desea buscar en los personajes: ")
 
-def buscar_personajes_equipamiento():
-    print("Buscando personajes por equipamiento...")
+
+    if nombre_arma not in armas:
+        print(f"Error: El arma '{nombre_arma}' no existe.")
+        return
+
+    personajes_con_arma = [nombre for nombre, datos in personajes.items()
+                           if any(equipo['tipo'] == armas[nombre_arma]["tipo"] for equipo in datos["equipamiento"])]
+
+    if personajes_con_arma:
+        print(f"Personajes que tienen el arma '{nombre_arma}':")
+        for nombre in personajes_con_arma:
+            print("- " + nombre)
+    else:
+        print(f"No se encontraron personajes con el arma '{nombre_arma}'.")
