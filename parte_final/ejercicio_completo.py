@@ -235,7 +235,7 @@ def simular_batalla():
     elif probabilidad_ganar2 > probabilidad_ganar1:
         ganador = personaje2
 
-    print(f"El ganador \n")
+    print(f"El ganador {ganador}\n")
 
 
 def menu():
@@ -275,7 +275,7 @@ def menu():
                 case 7:
                     listar_personajes_faccion()
                 case 8:
-                    buscar_personajes_equipamiento()
+                    buscar_personajes_equipamiento(armas)
                 case 9:
                     mostrar_personajes(personajes)
                 case 10:
@@ -299,12 +299,21 @@ def listar_personajes_faccion():
     else:
         print(f"No hay personajes en la facción '{faccion}'.")
 
-def buscar_personajes_equipamiento():
+def buscar_personajes_equipamiento(armas):
     nombre_arma = is_arma(input("Ingrese el nombre del arma que desea buscar en los personajes: "))
 
-    for p, datos in personajes.items():
-        for equipamiento in datos["equipamiento"]:
-            if equipamiento["nombre"] == armas[nombre_arma]["nombre"]:
-                print(f"Personaje {p.capitalize()}")
+    personajes_con_arma = []
+    for nombre, datos in personajes.items():
+        for equipo in datos["equipamiento"]:
+            if equipo == armas[nombre_arma]:
+                personajes_con_arma.append(nombre)
+                break
+
+    if personajes_con_arma:
+        print(f"Personajes que tienen el arma '{armas[nombre_arma]["nombre"]}':")
+        for nombre in personajes_con_arma:
+            print("- " + nombre)
+    else:
+        print(f"No se encontraron personajes con el arma '{armas[nombre_arma]["nombre"]}'.")
 
 menu()
