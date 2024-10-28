@@ -70,7 +70,6 @@ def listar_personajes_faccion(faccion_list, personajes):
     else:
         print(f"No hay personajes en la facción '{faccion}'.")
 
-
 def buscar_personajes_equipamiento(armas):
     nombre_arma = input("Ingrese el nombre del arma que desea buscar en los personajes: ")
 
