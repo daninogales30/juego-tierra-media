@@ -76,8 +76,12 @@ def simular_batalla():
         print("Ambos personajes necesitan un arma para luchar")
     potencia1=arma1["potencia"]
     potencia2=arma2["potencia"]
-    probabilidad_ganar=potencia1/(potencia1+potencia2)
-    ganador=random()
+    probabilidad_ganar1=potencia1/(potencia1+potencia2)
+    probabilidad_ganar2 = potencia2 / (potencia2 + potencia1)
+    if probabilidad_ganar1 > probabilidad_ganar2:
+        ganador = personaje1
+    elif probabilidad_ganar2 > probabilidad_ganar1:
+        ganador = personaje2
     print(f"La batalla acaba de empezar entre {personaje1} y {personaje2}")
     print(f"{personaje1}con {arma1['tipo']}vs {personaje2}con {arma2['tipo']}")
     print(f"Y el ganador es:")
