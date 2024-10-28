@@ -1,7 +1,10 @@
+from parte_dario.parte3_dario import armas
+
 equipamiento_lista = []
 relaciones_lista = []
 personajes = {}
 ubicaciones = ['Rivendel', 'Hobbiton', 'Minas Tirith', 'Mordor', 'Isengard', 'Bosque Negro', 'Lothlórien']
+
 
 def is_nombre(nombre):
     while nombre.lower() not in personajes:
@@ -17,6 +20,11 @@ def is_ubicacion(ubicacion):
         if ubicacion.lower() not in ubicaciones:
             print("La ubicacion no existe")
 
+def is_arma(arma):
+    while arma.lower() not in armas:
+        arma = input("Ingrese el arma del personaje: ")
+        if arma.lower() not in armas:
+            print("El arma no existe")
 
 def agregar_personajes():
     nombre = input("Ingrese el nombre del personaje: ")
