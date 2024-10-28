@@ -142,7 +142,9 @@ def mostrar_personajes(personajes_diccionario):
         print()
 
 def cambiar_localizacion():
-    nombre_personaje = is_nombre(input("Ingrese el nombre del personaje: "))
+    nombre_personaje = input("Ingrese el nombre del personaje: ").lower()
+    if nombre_personaje not in personajes:
+        raise ValueError("Nombre no existe")
 
     ubicacion_nueva = is_ubicacion(input("Ingrese la nueva ubicacion: "))
 
@@ -217,12 +219,12 @@ def simular_batalla():
     personaje1= is_nombre(input("Introduzca el nombre del primer personaje: "))
     arma1 = personajes[personaje1]["arma_equipada"]
     if arma1 == "":
-        raise ValueError(f"El personaje {personaje1} no tiene arma")
+        raise ValueError(f"El personaje {personaje1} no tiene arma equipada")
 
     personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
     arma2 = personajes[personaje2]["arma_equipada"]
     if arma2 == "":
-        raise ValueError(f"El personaje {personaje2} no tiene arma")
+        raise ValueError(f"El personaje {personaje2} no tiene arma equipada")
 
     potencia1=armas[arma1]["potencia"]
     potencia2=armas[arma2]["potencia"]
@@ -235,7 +237,7 @@ def simular_batalla():
     elif probabilidad_ganar2 > probabilidad_ganar1:
         ganador = personaje2
 
-    print(f"El ganador {ganador}\n")
+    print(f"El ganador \n")
 
 
 def menu():
