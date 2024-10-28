@@ -53,17 +53,7 @@ def listar_personajes_faccion(faccion_list, personajes):
 
     personajes_faccion = [nombre for nombre, datos in personajes.items() if datos["faccion"] == faccion]
 
-    if personajes_faccion:
-        print(f"Personajes de la facción '{faccion}':")
-        for nombre in personajes_faccion:
-            datos = personajes[nombre]
-            print("Nombre:", nombre)
-            print("Raza:", datos["raza"])
-            print("Ubicación:", datos["ubicacion"])
-            print("Equipamiento:", ", ".join(item['tipo'] for item in datos["equipamiento"]) if datos["equipamiento"] else "Ninguno")
-            print()
-    else:
-        print(f"No hay personajes en la facción '{faccion}'.")
+    mostrar_personajes(personajes)
 
 def buscar_personajes_equipamiento(armas):
     nombre_arma = input("Ingrese el nombre del arma que desea buscar en los personajes: ")
