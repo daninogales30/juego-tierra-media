@@ -202,7 +202,8 @@ def equipar_arma():
 
     nombre_arma = is_arma(input("Indique el nombre del arma: "))
 
-    while nombre_arma not in personajes[nombre_personaje]["equipamiento"]:
+    for equipamiento in personajes[nombre_personaje]["equipamiento"]:
+        if equipamiento['nombre'] == armas[nombre_arma]['nombre']:
         nombre_arma = input("Indique el nombre del arma: ")
 
     personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
