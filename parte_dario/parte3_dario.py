@@ -64,13 +64,15 @@ def equipar_arma():
     print(f"El personaje {nombre_personaje} ha cambiado de arma {armas[nombre_arma]}")
 
 
-def simular_batalla():
-    personaje1=""
-    personaje2=""
-    arma1=personajes[personaje1]["equipamiento"]
-    arma2=personajes[personaje2]["equipamiento"]
+def simular_batalla(personaje1,personaje2):
+    if personaje1 not in personajes or personaje2 not in personajes:
+        print("Alguno de los dos personajes o los dos no existen")
+        return
+    arma1 = personajes[personaje1]["equipamiento"]
+    arma2 = personajes[personaje2]["equipamiento"]
     if not arma1 or not arma2:
         print("Ambos personajes necesitan un arma para luchar")
+        return
     potencia1=arma1["potencia"]
     potencia2=arma2["potencia"]
     probabilidad_ganar1=potencia1/(potencia1+potencia2)

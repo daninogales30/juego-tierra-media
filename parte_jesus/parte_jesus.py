@@ -34,7 +34,7 @@ def menu():
                 case 5:
                     cambiar_localizacion()
                 case 6:
-                    simular_batalla()
+                    simular_batalla("Juan","Carlos")
                 case 7:
                     listar_personajes_faccion(personajes)
                 case 8:
