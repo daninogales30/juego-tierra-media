@@ -1,5 +1,5 @@
-from parte_dani.parte_dani import establecer_relaciones, mostrar_personajes, cambiar_localizacion, agregar_personajes
-from parte_dario.parte3_dario import anadir_equipamiento, equipar_arma, simular_batalla
+from parte_dani.parte_dani import *
+from parte_dario.parte3_dario import *
 
 facciones = ["La Comunidad del Anillo", "Mordor", "Isengard", "Rivendel", "Lothlórien"]
 def menu():
