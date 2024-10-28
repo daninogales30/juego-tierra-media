@@ -1,3 +1,5 @@
+
+
 razas_personaje =['humana', 'elfo', 'enano', 'hobbit']
 facciones = ['mordor', 'riverdale', 'outerbanks', 'isengard']
 personajes = {}
@@ -67,7 +69,6 @@ def is_arma(arma):
     while arma_sinespacios not in armas:
         print("El arma no existe.")
         arma = input("Ingrese nuevamente el arma: ")
-        arma_sinespacios = arma.replace(" ", "").lower()
 
     return arma_sinespacios
 
@@ -122,7 +123,7 @@ def mostrar_personajes(personajes_diccionario):
                 print(f"    -Nombre: {equipamiento['nombre']}")
                 print(f"    -Tipo: {equipamiento['tipo']}")
                 print(f"    -Potencia: {equipamiento['potencia']}")
-                print(f"    -Descripcion: {equipamiento['descripcion']}")
+                print(f"    -Descripcion: {equipamiento['descripcion']}\n")
 
         else:
             print("Equipamiento: Ninguno")
@@ -135,11 +136,10 @@ def mostrar_personajes(personajes_diccionario):
                 print(f"    -Faccion: {relacion['nivel_confianza']}\n")
         else:
             print("Relaciones: Ninguno")
+
+        if datos["arma_equipada"]:
+            print("Arma equipada:", datos["arma_equipada"]["nombre"], "\n")
         print()
-
-
-
-
 
 def cambiar_localizacion():
     nombre_personaje = is_nombre(input("Ingrese el nombre del personaje: "))
@@ -203,12 +203,12 @@ def equipar_arma():
     nombre_arma = is_arma(input("Indique el nombre del arma: "))
 
     for equipamiento in personajes[nombre_personaje]["equipamiento"]:
-        if equipamiento['nombre'] == armas[nombre_arma]['nombre']:
-        nombre_arma = input("Indique el nombre del arma: ")
+        if equipamiento["descripcion"] == armas[nombre_arma]['descripcion']:
+            personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
+            print(f"El personaje {nombre_personaje} ha equipado el arma: {armas[nombre_arma]['nombre']}\n")
+            return
 
-    personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
-    print(f"El personaje {nombre_personaje} ha equipado el arma: {nombre_arma}")
-
+    print(f"El personaje {nombre_personaje} no tiene ese arma\n")
 
 def simular_batalla():
     personaje1=""
@@ -265,7 +265,7 @@ def menu():
                 case 6:
                     simular_batalla()
                 case 7:
-                    listar_personajes_faccion(personajes)
+                    listar_personajes_faccion()
                 case 8:
                     buscar_personajes_equipamiento(armas)
                 case 9:
@@ -278,7 +278,7 @@ def menu():
         except ValueError as e:
             print(f"Error: {e}")
 
-def listar_personajes_faccion(personajes):
+def listar_personajes_faccion():
     faccion = is_faccion(input("Ingrese la facción que desea listar: "))
 
     personajes_faccion = [nombre for nombre, datos in personajes.items() if datos["faccion"] == faccion]
