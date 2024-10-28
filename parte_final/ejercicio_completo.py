@@ -300,15 +300,14 @@ def listar_personajes_faccion():
         print(f"No hay personajes en la facción '{faccion}'.")
 
 def buscar_personajes_equipamiento(armas):
-    nombre_arma = input("Ingrese el nombre del arma que desea buscar en los personajes: ")
+    nombre_arma = is_arma(input("Ingrese el nombre del arma que desea buscar en los personajes: "))
 
-
-    if nombre_arma not in armas:
-        print(f"Error: El arma '{nombre_arma}' no existe.")
-        return
-
-    personajes_con_arma = [nombre for nombre, datos in personajes.items()
-                           if any(equipo['tipo'] == armas[nombre_arma]["tipo"] for equipo in datos["equipamiento"])]
+    personajes_con_arma = []
+    for nombre, datos in personajes.items():
+        for equipo in datos["equipamiento"]:
+            if equipo == armas[nombre_arma]:
+                personajes_con_arma.append(nombre)
+                break
 
     if personajes_con_arma:
         print(f"Personajes que tienen el arma '{nombre_arma}':")
