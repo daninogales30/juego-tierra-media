@@ -1,7 +1,12 @@
 
 
 razas_personaje =['humana', 'elfo', 'enano', 'hobbit']
-facciones = ['mordor', 'riverdale', 'outerbanks', 'isengard']
+facciones = {
+    'mordor':1,
+    'riverdale':2,
+    'outerbanks': 3,
+    'isengard':4
+}
 personajes = {}
 ubicaciones = ['rivendel', 'hobbiton', 'minastirith', 'mordor', 'isengard', 'bosquenegro', 'lothlórien']
 armas={
