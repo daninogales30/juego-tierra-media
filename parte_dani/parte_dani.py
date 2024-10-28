@@ -77,9 +77,9 @@ def mostrar_personajes(personajes_diccionario):
         if datos["relaciones"]:
             print("Relaciones:")
             for relacion in datos["relaciones"]:
-                print(f"- Nombre: {relacion['nombre']}")
+                print(f"- Nombre: {relacion['nombre_relacionado']}")
                 print(f"- Raza: {relacion['tipo']}")
-                print(f"- Faccion: {relacion['confianza']}")
+                print(f"- Faccion: {relacion['nivel_confianza']}\n")
         else:
             print(f"Sin relaciones")
         print()
@@ -101,22 +101,28 @@ def establecer_relaciones():
 
     nombre_personaje_relacionado = is_nombre(input("Ingrese el nombre del personaje relacionado: "))
 
-    tipo_relacion = ""
+    tipo_relacion = input(f"Ingrese el tipo de relacion entre {nombre_personaje} y {nombre_personaje_relacionado}: ")
     while tipo_relacion.lower() not in ["amigo", "enemigo", "neutral"]:
+        print("Tipo de relacion no existe")
         tipo_relacion = input(f"Ingrese el tipo de relacion entre {nombre_personaje} y {nombre_personaje_relacionado}: ")
-        if tipo_relacion.lower() not in ["amigo", "enemigo", "neutral"]:
-            print("Este tipo de relacion no existe")
 
-    nivel_confianza = ""
+    nivel_confianza = int(input(f"Ingrese la nivel confianza entre {nombre_personaje} y {nombre_personaje_relacionado}: "))
     while nivel_confianza not in range(1,11):
+        print("El nivel confianza no existe")
         nivel_confianza = int(input(f"Ingrese la nivel confianza entre {nombre_personaje} y {nombre_personaje_relacionado}: "))
-        if nivel_confianza not in range(1,11):
-            print("El nivel confianza no existe")
 
-    personajes[nombre_personaje]["relaciones"] = {
+    personajes[nombre_personaje]["relaciones"].append({
         "nombre_relacionado": nombre_personaje_relacionado,
         "tipo": tipo_relacion,
         "nivel_confianza": nivel_confianza
-    }
+    })
+
+    personajes[nombre_personaje_relacionado]["relaciones"].append({
+        "nombre_relacionado": nombre_personaje,
+        "tipo": tipo_relacion,
+        "nivel_confianza": nivel_confianza
+    })
+
+    print("Relacion establecida con éxito")
 
 

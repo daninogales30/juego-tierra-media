@@ -1,6 +1,5 @@
-from random import random
-
 from parte_dani.parte_dani import *
+from parte_jesus.parte_jesus import *
 
 armas={
     "Andúril":{
@@ -42,13 +41,11 @@ armas={
 
 
 def anadir_equipamiento():
-    nombre_personaje = ""
-    is_nombre(nombre_personaje)
+    nombre_personaje = is_nombre(input("Indique el nombre del personaje"))
 
     print("Añade un arma al personaje si es que el arma existe")
 
-    nombre_arma = ""
-    is_arma(nombre_arma)
+    nombre_arma = is_arma((input("Indique el nombre del arma")))
 
     personajes[nombre_personaje]["equipamiento"].append(armas[nombre_arma])
     print(f"{nombre_arma} ha sido añadido al personaje: {nombre_personaje}")
