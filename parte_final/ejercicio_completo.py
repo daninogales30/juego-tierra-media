@@ -307,5 +307,4 @@ def buscar_personajes_equipamiento():
             if equipamiento["nombre"] == armas[nombre_arma]["nombre"]:
                 print(f"Personaje {p.capitalize()}")
 
-
 menu()
