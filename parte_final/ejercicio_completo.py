@@ -68,7 +68,7 @@ def is_arma(arma):
     arma_sinespacios = arma.replace(" ", "").lower()
     while arma_sinespacios not in armas:
         print("El arma no existe.")
-        arma = input("Ingrese nuevamente el arma: ")
+        arma_sinespacios = input("Ingrese nuevamente el arma: ").replace(" ","")
 
     return arma_sinespacios
 
@@ -195,18 +195,21 @@ def anadir_equipamiento():
         'potencia': armas[nombre_arma]['potencia'],
         'descripcion': armas[nombre_arma]['descripcion'],
     })
-    print(f"El arma: {armas[nombre_arma]['nombre']}  sido añadido al personaje: {nombre_personaje}")
+    print(f"El arma: {armas[nombre_arma]['nombre']} ha sido añadido al personaje: {nombre_personaje.capitalize()}")
 
 def equipar_arma():
     nombre_personaje = is_nombre(input("Indique el nombre del personaje: "))
-
+    esta_inventario = True
     nombre_arma = is_arma(input("Indique el nombre del arma: "))
+    while esta_inventario:
+        for equipamiento in personajes[nombre_personaje]["equipamiento"]:
+            if equipamiento["nombre"] == armas[nombre_arma]['nombre']:
+                personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
+                print(f"El personaje {nombre_personaje} ha equipado el arma: {armas[nombre_arma]['nombre']}\n")
+                esta_inventario = False
 
-    for equipamiento in personajes[nombre_personaje]["equipamiento"]:
-        if equipamiento["descripcion"] == armas[nombre_arma]['descripcion']:
-            personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
-            print(f"El personaje {nombre_personaje} ha equipado el arma: {armas[nombre_arma]['nombre']}\n")
-            return
+        raise ValueError(f"El arma {armas[nombre_arma]["nombre"]} no está en el inventario de {nombre_personaje.capitalize()}")
+
 
     print(f"El personaje {nombre_personaje} no tiene ese arma\n")
 
