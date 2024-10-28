@@ -1,4 +1,4 @@
-from parte_dani.parte_dani import establecer_relaciones, mostrar_personajes
+from parte_dani.parte_dani import establecer_relaciones, mostrar_personajes, cambiar_localizacion
 from parte_dario.parte3_dario import agregar_personajes, añadir_equipamiento, equipar_arma, simular_batalla
 
 
@@ -33,7 +33,7 @@ def menu():
                 case 4:
                     establecer_relaciones()
                 case 5:
-                    print("Moviendo un personaje a una nueva localización...")
+                    cambiar_localizacion()
                 case 6:
                     simular_batalla()
                 case 7:
