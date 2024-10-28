@@ -49,12 +49,7 @@ def menu():
 
 
 def listar_personajes_faccion(faccion_list, personajes):
-    faccion = input("Ingrese la facción que desea listar: ")
-
-
-    if faccion.lower() not in faccion_list:
-        print(f"Error: La facción '{faccion}' no existe.")
-        return
+    faccion = is_faccion(input("Ingrese la facción que desea listar: "))
 
     personajes_faccion = [nombre for nombre, datos in personajes.items() if datos["faccion"] == faccion]
 
