@@ -41,7 +41,7 @@ def menu():
                 case 8:
                     buscar_personajes_equipamiento(armas)
                 case 9:
-                    mostrar_personajes()
+                    mostrar_personajes(personajes)
                 case 10:
                     print("Saliendo del juego")
                     es_valido = False

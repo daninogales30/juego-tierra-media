@@ -1,14 +1,14 @@
 from parte_dario.parte3_dario import *
 
-equipamiento_lista = []
-relaciones_lista = []
+razas_personaje =['humana', 'elfo', 'enano', 'hobbit']
+facciones = ['mordor', 'riverdale', 'outerbanks', 'isengard']
 personajes = {}
-ubicaciones = ['Rivendel', 'Hobbiton', 'Minas Tirith', 'Mordor', 'Isengard', 'Bosque Negro', 'Lothlórien']
+ubicaciones = ['rivendel', 'hobbiton', 'minas tirith', 'mordor', 'isengard', 'bosque negro', 'lothlórien']
+
 
 
 def is_nombre(nombre):
     while nombre.lower() not in personajes:
-        nombre = input("Ingrese el nombre del personaje: ")
         if nombre.lower() not in personajes:
             print(f"El personaje con nombre {nombre} no existe")
 
@@ -16,35 +16,55 @@ def is_nombre(nombre):
 
 def is_ubicacion(ubicacion):
     while ubicacion.lower() not in ubicaciones:
-        ubicacion = input("Ingrese el ubicacion del personaje: ")
         if ubicacion.lower() not in ubicaciones:
             print("La ubicacion no existe")
 
+    return ubicacion
+
 def is_arma(arma):
     while arma.lower() not in armas:
-        arma = input("Ingrese el arma del personaje: ")
         if arma.lower() not in armas:
             print("El arma no existe")
+
+    return arma
+
+def is_faccion(faccion):
+    while faccion.strip().lower() not in facciones.items().strip():
+        if faccion.lower() not in facciones:
+            print("La faccion no existe")
+
+    return faccion
+
+
+def is_raza(raza):
+    while raza.lower() not in razas_personaje:
+        print("La raza no existe")
+        raza= input("Ingrese nuevamente la raza: ")
+
+    return raza
 
 def agregar_personajes():
     nombre = input("Ingrese el nombre del personaje: ")
     raza = input("Ingrese la raza del personaje: ")
-    faccion = input("Ingrese la faccion del personaje: ")
-    ubicacion = ""
-    while ubicacion not in ubicaciones:
-        ubicacion = input("Ingrese la ubicacion del personaje: ")
-        if ubicacion not in ubicaciones:
-            print("Ingrese una válida porfavor.")
+    is_raza(raza)
+
+    faccion = input("Ingrese la faccion del personaje")
+    is_faccion(faccion)
+    ubicacion = input("Ingrese la ubicacion del personaje")
+    is_ubicacion(ubicacion)
 
     personajes[nombre] = {
-        "raza": raza,
-        "faccion": faccion,
-        "ubicacion": ubicacion,
+        "raza": raza.lower(),
+        "faccion": faccion.lower(),
+        "ubicacion": ubicacion.lower(),
         "equipamiento": [],
         "relaciones": []
     }
 
 def mostrar_personajes(personajes_diccionario):
+    if not personajes_diccionario:
+        print("Esta vacío")
+
     for nombre, datos in personajes_diccionario.items():
         print("Nombre:", nombre)
         print("Raza:", datos["raza"])
@@ -67,7 +87,8 @@ def mostrar_personajes(personajes_diccionario):
         print()
 
 def cambiar_localizacion():
-    nombre_personaje = is_nombre(input("Ingrese el nombre del personaje: "))
+    nombre_personaje = ""
+    is_nombre(nombre_personaje)
 
     ubicacion_nueva = ""
     while ubicacion_nueva.lower() not in ubicaciones:
