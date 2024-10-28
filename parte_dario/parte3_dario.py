@@ -1,3 +1,5 @@
+from random import random
+
 from parte_dani.parte_dani import *
 
 armas={
@@ -66,4 +68,16 @@ def equipar_arma():
 
 
 def simular_batalla():
-    print("Queda estoooo")
+    personaje1=""
+    personaje2=""
+    arma1=personajes[personaje1]["equipamiento"]
+    arma2=personajes[personaje2]["equipamiento"]
+    if not arma1 or not arma2:
+        print("Ambos personajes necesitan un arma para luchar")
+    potencia1=arma1["potencia"]
+    potencia2=arma2["potencia"]
+    probabilidad_ganar=potencia1/(potencia1+potencia2)
+    ganador=random()
+    print(f"La batalla acaba de empezar entre {personaje1} y {personaje2}")
+    print(f"{personaje1}con {arma1['tipo']}vs {personaje2}con {arma2['tipo']}")
+    print(f"Y el ganador es:")
