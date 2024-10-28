@@ -1,4 +1,4 @@
-from parte_dani.parte_dani import is_nombre, is_arma, personajes
+from parte_dani.parte_dani import *
 
 armas={
     "Andúril":{

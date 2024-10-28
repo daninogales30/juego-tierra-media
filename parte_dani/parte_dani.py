@@ -1,4 +1,4 @@
-from parte_dario.parte3_dario import armas
+from parte_dario.parte3_dario import *
 
 equipamiento_lista = []
 relaciones_lista = []
