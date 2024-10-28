@@ -37,7 +37,7 @@ def menu():
                 case 6:
                     simular_batalla()
                 case 7:
-                    listar_personajes_faccion()
+                    listar_personajes_faccion(facciones, personajes)
                 case 8:
                     buscar_personajes_equipamiento()
                 case 9:
@@ -49,10 +49,10 @@ def menu():
             print(f"Error: {e}")
 
 
-def listar_personajes_faccion():
+def listar_personajes_faccion(faccion_list, personajes):
     faccion = input("Inserte la facción:")
-    if faccion.lower() in facciones:
-        for personaje in faccion:
+    if faccion in faccion_list:
+        for personaje in personajes:
             print(personaje)
     else:
         raise ValueError("Esa faccion no existe")
