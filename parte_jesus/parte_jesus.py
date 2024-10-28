@@ -56,12 +56,7 @@ def listar_personajes_faccion(faccion_list, personajes):
     if personajes_faccion:
         print(f"Personajes de la facción '{faccion}':")
         for nombre in personajes_faccion:
-            datos = personajes[nombre]
-            print("Nombre:", nombre)
-            print("Raza:", datos["raza"])
-            print("Ubicación:", datos["ubicacion"])
-            print("Equipamiento:",
-                  ", ".join(item['tipo'] for item in datos["equipamiento"]) if datos["equipamiento"] else "Ninguno")
+            print(nombre.capitalize())
             print()
     else:
         print(f"No hay personajes en la facción '{faccion}'.")
