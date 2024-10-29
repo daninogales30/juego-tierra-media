@@ -146,17 +146,14 @@ def mostrar_personajes(personajes_diccionario):
         print()
 
 def cambiar_localizacion():
-    nombre_personaje = input("Ingrese el nombre del personaje: ")
-    if nombre_personaje not in personajes:
-        raise ValueError("Nombre no existe")
-
-    ubicacion_nueva = is_ubicacion(input("Ingrese la nueva ubicacion: "))
-
     try:
+        nombre_personaje = input("Ingrese el nombre del personaje: ").lower()
+        ubicacion_nueva = is_ubicacion(input("Ingrese la nueva ubicacion: "))
+
         personajes[nombre_personaje]["ubicacion"] = ubicacion_nueva
         print("La ubicacion se ha cambiado correctamente\n")
-    except KeyError:
-        print(f"Error: El personaje '{nombre_personaje}' no existe en la lista.")
+    except ValueError:
+        print(f"El nombre del personaje no existe")
 
 
 def establecer_relaciones():
@@ -196,7 +193,7 @@ def anadir_equipamiento():
     nombre_arma = is_arma((input("Indique el nombre del arma: ")))
 
     if nombre_personaje not in personajes:
-        print(f"Error: El personaje '{nombre_personaje}' no existe.")
+        print(f"Error: El personaje '{nombre_personaje}' no existe.\n")
         return
 
     personajes[nombre_personaje]["equipamiento"].append({
@@ -204,7 +201,7 @@ def anadir_equipamiento():
         'tipo': armas[nombre_arma]['tipo'],
         'potencia': armas[nombre_arma]['potencia'],
     })
-    print(f"El arma: {armas[nombre_arma]['nombre']} ha sido añadido al personaje: {nombre_personaje.capitalize()}")
+    print(f"El arma: {armas[nombre_arma]['nombre']} ha sido añadido al personaje: {nombre_personaje.capitalize()}\n")
 
 def equipar_arma():
     nombre_personaje = is_nombre(input("Indique el nombre del personaje: "))
@@ -228,22 +225,33 @@ def simular_batalla():
     arma1 = personajes[personaje1]["arma_equipada"]
     if arma1 == "":
         raise ValueError(f"El personaje {personaje1} no tiene arma equipada")
-    tipo1 = personajes[personaje1]["equipamiento"]["tipo"]
+    tipo1 = arma1["tipo"]
 
     personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
     arma2 = personajes[personaje2]["arma_equipada"]
     if arma2 == "":
         raise ValueError(f"El personaje {personaje2} no tiene arma equipada")
-    tipo2 = personajes[personaje2]["equipamiento"]["tipo"]
+    tipo2 = arma2["tipo"]
 
     probabilidades_tipo = {
         "Espada":0.6,
         "Arco":0.5,
         "Hacha":0.55,
-        "Daga":0.4
+        "Daga":0.4,
+        "Baston": 0.5,
+        "Objeto especial":0.65
     }
-
+    probabilidad_personaje1 = probabilidades_tipo[tipo1]
+    probabilidad_personaje2 = probabilidades_tipo[tipo2]
     resultado = random.random()
+
+    if resultado < probabilidad_personaje1:
+        print(f"El personaje {personaje1} gana la batalla")
+    elif resultado < probabilidad_personaje1 + probabilidad_personaje2:
+        print(f"El personaje {personaje2} gana la batalla")
+    else:
+        print("No gana nadie es un empate")
+
 
 def menu():
     es_valido = True
@@ -296,15 +304,19 @@ def menu():
 def listar_personajes_faccion():
     faccion = is_faccion(input("Ingrese la facción que desea listar: "))
 
-    personajes_faccion = list(filter(lambda nombre: personajes[nombre]["faccion"] == faccion, personajes))
+    personajes_faccion = []
+
+    for p, datos in personajes.items():
+        if faccion == datos["faccion"]:
+            personajes_faccion.append(p)
 
     if personajes_faccion:
-        print(f"Personajes de la facción '{faccion.capitalize()}':")
+        print(f"Personajes en la faccion: {faccion}")
         for nombre in personajes_faccion:
-            print(nombre.capitalize())
+            print(f"- {nombre.capitalize()}")
         print()
     else:
-        print(f"No hay personajes en la facción '{faccion}'.\n")
+        print("No hay personajes en la faccion")
 
 
 def buscar_personajes_equipamiento():
@@ -319,7 +331,7 @@ def buscar_personajes_equipamiento():
     if personajes_con_arma:
         print(f"Personajes que tienen el arma '{armas[nombre_arma]['nombre']}':")
         for nombre in personajes_con_arma:
-            print("- " + nombre.capitalize())
+            print(f"- {nombre.capitalize()}")
         print()
     else:
         print(f"No se encontraron personajes con el arma '{armas[nombre_arma]['nombre']}'.\n")
