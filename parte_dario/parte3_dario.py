@@ -1,3 +1,5 @@
+from random import random
+
 from parte_dani.parte_dani import *
 from parte_jesus.parte_jesus import *
 
@@ -64,23 +66,31 @@ def equipar_arma():
     print(f"El personaje {nombre_personaje} ha cambiado de arma {armas[nombre_arma]}")
 
 
-def simular_batalla(personaje1,personaje2):
-    if personaje1 not in personajes or personaje2 not in personajes:
-        print("Alguno de los dos personajes o los dos no existen")
-        return
-    arma1 = personajes[personaje1]["equipamiento"]
-    arma2 = personajes[personaje2]["equipamiento"]
-    if not arma1 or not arma2:
-        print("Ambos personajes necesitan un arma para luchar")
-        return
-    potencia1=arma1["potencia"]
-    potencia2=arma2["potencia"]
-    probabilidad_ganar1=potencia1/(potencia1+potencia2)
-    probabilidad_ganar2 = potencia2 / (potencia2 + potencia1)
-    if probabilidad_ganar1 > probabilidad_ganar2:
-        ganador = personaje1
-    elif probabilidad_ganar2 > probabilidad_ganar1:
-        ganador = personaje2
-    print(f"La batalla acaba de empezar entre {personaje1} y {personaje2}")
-    print(f"{personaje1}con {arma1['tipo']}vs {personaje2}con {arma2['tipo']}")
-    print(f"Y el ganador es:")
+def simular_batalla():
+    personaje1= is_nombre(input("Introduzca el nombre del primer personaje: "))
+    arma1 = personajes[personaje1]["arma_equipada"]
+    if arma1 == "":
+        raise ValueError(f"El personaje {personaje1} no tiene arma equipada")
+
+    personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
+    arma2 = personajes[personaje2]["arma_equipada"]
+    if arma2 == "":
+        raise ValueError(f"El personaje {personaje2} no tiene arma equipada")
+    tipo1 = personajes[personaje1]["equipamiento"]["tipo"]
+    tipo2 = personajes[personaje2]["equipamiento"]["tipo"]
+
+    probabilidades_tipo = {
+        "Espada":0.6,
+        "Arco":0.5,
+        "Hacha":0.55,
+        "Daga":0.4
+    }
+    probabilidad_personaje1= probabilidades_tipo[tipo1]
+    probabilidad_personaje2= probabilidades_tipo[tipo2]
+    resultado = random.random()
+    if resultado < probabilidad_personaje1:
+        print(f"El personaje {personaje1} gana la batalla")
+    elif resultado < probabilidad_personaje1+probabilidad_personaje2:
+        print(f"El personaje {personaje2} gana la batalla")
+    else:
+        print("No gana nadie es un empate")
