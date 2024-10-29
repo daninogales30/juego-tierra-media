@@ -1,4 +1,4 @@
-
+import random
 
 razas_personaje =['humana', 'elfo', 'enano', 'hobbit']
 facciones = {
@@ -93,7 +93,7 @@ def is_raza(raza):
     return raza
 
 def agregar_personajes():
-    nombre = input("Ingrese el nombre del personaje: ").strip().lower()
+    nombre = input("Ingrese el nombre del personaje: ")
     while nombre=="":
         nombre = input("Ingrese el nombre del personaje correctamente: ").strip().lower()
 
@@ -102,7 +102,7 @@ def agregar_personajes():
     ubicacion = is_ubicacion(input("Ingrese la ubicacion del personaje: "))
 
 
-    personajes[nombre] = {
+    personajes[nombre.lower()] = {
         "raza": raza.lower(),
         "faccion": faccion.lower(),
         "ubicacion": ubicacion.lower(),
@@ -189,11 +189,15 @@ def establecer_relaciones():
     print("Relacion establecida con éxito")
 
 def anadir_equipamiento():
-    nombre_personaje = is_nombre(input("Indique el nombre del personaje: "))
+    nombre_personaje = is_nombre(input("Indique el nombre del personaje: ")).lower()
 
     print("Añade un arma al personaje si es que el arma existe")
 
     nombre_arma = is_arma((input("Indique el nombre del arma: ")))
+
+    if nombre_personaje not in personajes:
+        print(f"Error: El personaje '{nombre_personaje}' no existe.")
+        return
 
     personajes[nombre_personaje]["equipamiento"].append({
         'nombre': armas[nombre_arma]['nombre'],
@@ -223,25 +227,22 @@ def simular_batalla():
     arma1 = personajes[personaje1]["arma_equipada"]
     if arma1 == "":
         raise ValueError(f"El personaje {personaje1} no tiene arma equipada")
+    tipo1 = personajes[personaje1]["equipamiento"]["tipo"]
 
     personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
     arma2 = personajes[personaje2]["arma_equipada"]
     if arma2 == "":
         raise ValueError(f"El personaje {personaje2} no tiene arma equipada")
+    tipo2 = personajes[personaje2]["equipamiento"]["tipo"]
 
-    potencia1=armas[arma1]["potencia"]
-    potencia2=armas[arma2]["potencia"]
+    probabilidades_tipo = {
+        "Espada":0.6,
+        "Arco":0.5,
+        "Hacha":0.55,
+        "Daga":0.4
+    }
 
-    probabilidad_ganar1=potencia1/(potencia1+potencia2)
-    probabilidad_ganar2 = potencia2 / (potencia2 + potencia1)
-
-    if probabilidad_ganar1 > probabilidad_ganar2:
-        ganador = personaje1
-    elif probabilidad_ganar2 > probabilidad_ganar1:
-        ganador = personaje2
-
-    print(f"El ganador \n")
-
+    resultado = random.random()
 
 def menu():
     es_valido = True
@@ -319,5 +320,6 @@ def buscar_personajes_equipamiento():
             print("- " + nombre.capitalize())
     else:
         print(f"No se encontraron personajes con el arma '{armas[nombre_arma]["nombre"]}'.")
+
 
 menu()

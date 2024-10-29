@@ -126,3 +126,16 @@ def establecer_relaciones():
     print("Relacion establecida con éxito")
 
 
+def simular_batalla():
+    personaje1= is_nombre(input("Introduzca el nombre del primer personaje: "))
+    arma1 = personajes[personaje1]["arma_equipada"]
+    if arma1 == "":
+        raise ValueError(f"El personaje {personaje1} no tiene arma equipada")
+
+    personaje2= is_nombre(input("Introduzca el nombre del segundo personaje: "))
+    arma2 = personajes[personaje2]["arma_equipada"]
+    if arma2 == "":
+        raise ValueError(f"El personaje {personaje2} no tiene arma equipada")
+
+
+
