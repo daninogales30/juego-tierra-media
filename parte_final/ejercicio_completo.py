@@ -128,7 +128,6 @@ def mostrar_personajes(personajes_diccionario):
                 print(f"    -Nombre: {equipamiento['nombre']}")
                 print(f"    -Tipo: {equipamiento['tipo']}")
                 print(f"    -Potencia: {equipamiento['potencia']}")
-                print(f"    -Descripcion: {equipamiento['descripcion']}\n")
 
         else:
             print("Equipamiento: Ninguno")
@@ -200,7 +199,6 @@ def anadir_equipamiento():
         'nombre': armas[nombre_arma]['nombre'],
         'tipo': armas[nombre_arma]['tipo'],
         'potencia': armas[nombre_arma]['potencia'],
-        'descripcion': armas[nombre_arma]['descripcion'],
     })
     print(f"El arma: {armas[nombre_arma]['nombre']} ha sido añadido al personaje: {nombre_personaje.capitalize()}")
 
@@ -307,11 +305,11 @@ def listar_personajes_faccion():
 
 def buscar_personajes_equipamiento():
     nombre_arma = is_arma(input("Ingrese el nombre del arma que desea buscar en los personajes: "))
-
     personajes_con_arma = []
+
     for nombre, datos in personajes.items():
-        for equipo in datos["equipamiento"]:
-            if equipo == armas[nombre_arma]:
+        for equipamiento in datos["equipamiento"]:
+            if equipamiento == armas[nombre_arma]:
                 personajes_con_arma.append(nombre)
                 break
 
