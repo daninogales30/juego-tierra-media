@@ -296,13 +296,12 @@ def menu():
 def listar_personajes_faccion():
     faccion = is_faccion(input("Ingrese la facción que desea listar: "))
 
-    personajes_faccion = [nombre for nombre, datos in personajes.items() if datos["faccion"] == faccion]
+    personajes_faccion = list(filter(lambda nombre: personajes[nombre]["faccion"] == faccion, personajes))
 
     if personajes_faccion:
         print(f"Personajes de la facción '{faccion.capitalize()}':")
         for nombre in personajes_faccion:
             print(nombre.capitalize())
-
     else:
         print(f"No hay personajes en la facción '{faccion}'.")
 
