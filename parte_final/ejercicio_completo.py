@@ -60,14 +60,14 @@ def is_nombre(nombre):
         print("El nombre no existe o está vacío. Intente nuevamente.")
         nombre = input("Ingrese el nombre: ")
 
-    return nombre
+    return nombre.lower()
 
 def is_ubicacion(ubicacion):
     while ubicacion.lower() not in ubicaciones:
         print("El ubicacion no existe")
         ubicacion = input("Ingrese nuevamente la ubicación: ")
 
-    return ubicacion
+    return ubicacion.lower()
 
 def is_arma(arma):
     arma_sinespacios = arma.replace(" ", "").lower()
@@ -82,7 +82,7 @@ def is_faccion(faccion):
         print("La faccion no existe")
         faccion = input("Ingrese nuevamente la faccion: ")
 
-    return faccion
+    return faccion.lower()
 
 
 def is_raza(raza):
@@ -90,10 +90,10 @@ def is_raza(raza):
         print("La raza no existe")
         raza= input("Ingrese nuevamente la raza: ")
 
-    return raza
+    return raza.lower()
 
 def agregar_personajes():
-    nombre = input("Ingrese el nombre del personaje: ")
+    nombre = input("Ingrese el nombre del personaje: ").lower()
     while nombre=="":
         nombre = input("Ingrese el nombre del personaje correctamente: ").strip().lower()
 
@@ -102,10 +102,10 @@ def agregar_personajes():
     ubicacion = is_ubicacion(input("Ingrese la ubicacion del personaje: "))
 
 
-    personajes[nombre.lower()] = {
-        "raza": raza.lower(),
-        "faccion": faccion.lower(),
-        "ubicacion": ubicacion.lower(),
+    personajes[nombre] = {
+        "raza": raza,
+        "faccion": faccion,
+        "ubicacion": ubicacion,
         "equipamiento": [],
         "relaciones": [],
         "arma_equipada": ""
@@ -146,7 +146,7 @@ def mostrar_personajes(personajes_diccionario):
         print()
 
 def cambiar_localizacion():
-    nombre_personaje = input("Ingrese el nombre del personaje: ").lower()
+    nombre_personaje = input("Ingrese el nombre del personaje: ")
     if nombre_personaje not in personajes:
         raise ValueError("Nombre no existe")
 
@@ -186,7 +186,7 @@ def establecer_relaciones():
         "nivel_confianza": nivel_confianza
     })
 
-    print("Relacion establecida con éxito")
+    print("Relacion establecida con éxito\n")
 
 def anadir_equipamiento():
     nombre_personaje = is_nombre(input("Indique el nombre del personaje: ")).lower()
@@ -216,6 +216,7 @@ def equipar_arma():
                 personajes[nombre_personaje]["arma_equipada"] = armas[nombre_arma]
                 print(f"El personaje {nombre_personaje} ha equipado el arma: {armas[nombre_arma]['nombre']}\n")
                 esta_inventario = False
+                break
 
         raise ValueError(f"El arma {armas[nombre_arma]["nombre"]} no está en el inventario de {nombre_personaje.capitalize()}")
 
@@ -301,25 +302,27 @@ def listar_personajes_faccion():
         print(f"Personajes de la facción '{faccion.capitalize()}':")
         for nombre in personajes_faccion:
             print(nombre.capitalize())
+        print()
     else:
-        print(f"No hay personajes en la facción '{faccion}'.")
+        print(f"No hay personajes en la facción '{faccion}'.\n")
+
 
 def buscar_personajes_equipamiento():
     nombre_arma = is_arma(input("Ingrese el nombre del arma que desea buscar en los personajes: "))
-
     personajes_con_arma = []
-    for nombre, datos in personajes.items():
-        for equipo in datos["equipamiento"]:
-            if equipo == armas[nombre_arma]:
-                personajes_con_arma.append(nombre)
-                break
+
+    for p, datos in personajes.items():
+        for equipamiento in datos["equipamiento"]:
+            if equipamiento["nombre"] == armas[nombre_arma]["nombre"]:
+                personajes_con_arma.append(p)
 
     if personajes_con_arma:
-        print(f"Personajes que tienen el arma '{nombre_arma}':")
+        print(f"Personajes que tienen el arma '{armas[nombre_arma]['nombre']}':")
         for nombre in personajes_con_arma:
-            print("- " + nombre)
+            print("- " + nombre.capitalize())
+        print()
     else:
-        print(f"No se encontraron personajes con el arma '{nombre_arma}'.")
+        print(f"No se encontraron personajes con el arma '{armas[nombre_arma]['nombre']}'.\n")
 
 
 menu()
